@@ -181,28 +181,7 @@
         height: 100%;
       }
 
-      .image1 {
-        background-image: url("");
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
-      .image2 {
-        background-image: url("");
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
-      .image3 {
-        background-image: url("");
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
-      .image4 {
+      .image {
         background-image: url("");
         background-position: center;
         background-size: cover;
@@ -252,38 +231,280 @@
         margin-top: 5em;
         border-radius: 6vw;
       }
+      .our-work {
+        display: none;
+      }
+      @media screen and (max-width: 1150px) {
+        .gallery {
+          display: none;
+        }
+        .our-work {
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .our-work .content-wrapper {
+          width: 100%;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+        }
+
+        .our-work .sliderparent {
+          width: 100%;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .our-work .sliderChildren {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .our-work .cardSlideChildren {
+          width: 100%;
+          height: 100vh;
+          color: #fff;
+          border-radius: 16px;
+          position: absolute;
+          opacity: 0;
+          display: flex;
+          flex-wrap: nowrap;
+          justify-content: center;
+          align-items: center;
+          column-gap: 60px;
+          flex-direction: column-reverse;
+        }
+
+        .our-work .img-container {
+          position: relative;
+          width: 90%;
+          height: 100%;
+          border-radius: 12px;
+          overflow: hidden;
+          margin-bottom: 30px;
+        }
+
+        .our-work .img-container img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .our-work .img-container::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.15)
+          );
+          pointer-events: none;
+        }
+
+        .our-work .card-container {
+          position: absolute;
+          width: fit-content;
+          height: fit-content;
+          padding: 20px 30px 20px 10px;
+          background: #ffffff;
+          border-top-right-radius: 14px;
+          left: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          display: none;
+        }
+
+        .our-work .card-large-number {
+          font-weight: 800;
+          font-size: 56px;
+          line-height: 68px;
+          text-transform: capitalize;
+          color: #d50c3d;
+        }
+
+        .our-work .card-title {
+          margin: 5px 0 20px;
+          font-weight: 700;
+          font-size: 22.68px;
+          line-height: 27px;
+          color: #232826;
+        }
+
+        .our-work .card-description {
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 20px;
+          color: #232826;
+          max-width: 300px;
+        }
+
+        .our-work .content-container {
+          width: 90%;
+          margin: 0px auto;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          flex-wrap: nowrap;
+          align-content: flex-start;
+          justify-content: space-around;
+          align-items: flex-start;
+          position: relative;
+        }
+
+        .our-work .content-heading {
+          max-width: 460px;
+          font-weight: 700;
+          font-size: 48px;
+          line-height: 58px;
+          text-transform: uppercase;
+          color: #232826;
+          margin-bottom: 20px;
+          transform: translateY(0px);
+          opacity: 1;
+        }
+        .content-heading h3 {
+          transform: translateY(0%);
+          opacity: 1;
+        }
+        .our-work .number-label {
+          position: absolute;
+          top: 19%;
+          left: 72%;
+          font-style: normal;
+          font-weight: 800;
+          font-size: 128px;
+          line-height: 34px;
+          display: flex;
+          align-items: center;
+          color: rgba(0, 0, 0, 0.06);
+          transform: translateY(0px);
+          opacity: 1;
+        }
+
+        .our-work .content-paragraph {
+          width: 90%;
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 30px;
+          color: #232826;
+          transform: translateY(0px);
+          opacity: 1;
+        }
+
+        @keyframes bounce {
+          0%,
+          20%,
+          50%,
+          80%,
+          100% {
+            transform: translateY(0) translateX(-50%);
+          }
+          40% {
+            transform: translateY(-20px) translateX(-50%);
+          }
+          60% {
+            transform: translateY(-10px) translateX(-50%);
+          }
+        }
+      }
+      @media (max-width: 768px) {
+        .cardSlideChildren {
+          flex-direction: column-reverse;
+          height: auto;
+          gap: 60px;
+          padding: 10px;
+        }
+
+        .img-container,
+        .content-container {
+          width: 100%;
+          height: auto;
+        }
+
+        .img-container {
+          height: 340px;
+        }
+
+        .content-heading {
+          font-weight: 700;
+          font-size: 25.47px;
+          line-height: 100%;
+          letter-spacing: 0px;
+        }
+
+        .content-paragraph {
+          font-weight: 400;
+          font-size: 16.98px;
+          line-height: 25.47px;
+          letter-spacing: 0%;
+        }
+
+        .number-label {
+          font-size: 80px;
+          top: 10%;
+          left: auto;
+          right: 0% !important;
+        }
+        .card-container {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="red"></div>
 
-    <div class="gallery">
+    <!-- For Desktop Devieces -->
+
+    <section class="gallery">
       <div class="left">
         <!-- desktop content -->
         <div class="desktopPhotos">
           <div
-            class="desktopPhoto image1"
+            class="desktopPhoto image1 image"
             cardLargeNumber="+2 m"
             cardTitle="Donated Money"
             cardDescription="People Go to bed hungry each night lorem ipsum"
           ></div>
 
           <div
-            class="desktopPhoto image2"
+            class="desktopPhoto image2 image"
             cardLargeNumber="+5 k"
             cardTitle="Meals Provided"
             cardDescription="Nutritious meals served to those in need"
           ></div>
 
           <div
-            class="desktopPhoto image3"
+            class="desktopPhoto image3 image"
             cardLargeNumber="+1.2 m"
             cardTitle="Medical Aid"
             cardDescription="Life-saving treatments provided worldwide"
           ></div>
 
           <div
-            class="desktopPhoto image4"
+            class="desktopPhoto image4 image"
             cardLargeNumber="+300"
             cardTitle="Shelters Built"
             cardDescription="Safe homes constructed for families"
@@ -355,7 +576,157 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- For Mobile Devieces -->
+
+    <section class="our-work">
+      <div class="content-wrapper">
+        <div class="sliderparent">
+          <div class="sliderChildren">
+            <div class="cardSlideChildren" id="our-work-1">
+              <div class="img-container">
+                <img src="./img/IMG1.png" alt="image" />
+              </div>
+
+              <div class="card-container">
+                <div class="card-large-number">+2 m</div>
+                <div class="card-title">Donated money</div>
+                <div class="card-description">
+                  People Go to Bed Hungry Each Night Lorem ipsum
+                </div>
+              </div>
+
+              <div class="content-container">
+                <div class="number-label">01</div>
+                <div class="content-heading">
+                  <h3>Sponsoring an orphan</h3>
+                </div>
+                <div class="content-paragraph">
+                  In a journey spanning nearly a decade, the sponsorship and
+                  care of orphans has been at the core of ulfah Organization's
+                  work. As a result of this commitment, the number of orphans
+                  benefiting from sponsorship programs reached 30,203 by the
+                  year 2024.
+                </div>
+              </div>
+            </div>
+
+            <div class="cardSlideChildren" id="our-work-2">
+              <div class="img-container">
+                <img src="./img/IMG1.png" alt="image" />
+              </div>
+
+              <div class="card-container">
+                <div class="card-large-number">+2 m</div>
+                <div class="card-title">Donated money</div>
+                <div class="card-description">
+                  People Go to Bed Hungry Each Night Lorem ipsum
+                </div>
+              </div>
+
+              <div class="content-container">
+                <div class="number-label">02</div>
+                <div class="content-heading">
+                  <h3>Sponsoring an orphan</h3>
+                </div>
+                <div class="content-paragraph">
+                  In a journey spanning nearly a decade, the sponsorship and
+                  care of orphans has been at the core of ulfah Organization's
+                  work. As a result of this commitment, the number of orphans
+                  benefiting from sponsorship programs reached 30,203 by the
+                  year 2024.
+                </div>
+              </div>
+            </div>
+
+            <div class="cardSlideChildren" id="our-work-3">
+              <div class="img-container">
+                <img src="./img/IMG1.png" alt="image" />
+              </div>
+
+              <div class="card-container">
+                <div class="card-large-number">+2 m</div>
+                <div class="card-title">Donated money</div>
+                <div class="card-description">
+                  People Go to Bed Hungry Each Night Lorem ipsum
+                </div>
+              </div>
+
+              <div class="content-container">
+                <div class="number-label">03</div>
+                <div class="content-heading">
+                  <h3>Sponsoring an orphan</h3>
+                </div>
+                <div class="content-paragraph">
+                  In a journey spanning nearly a decade, the sponsorship and
+                  care of orphans has been at the core of ulfah Organization's
+                  work. As a result of this commitment, the number of orphans
+                  benefiting from sponsorship programs reached 30,203 by the
+                  year 2024.
+                </div>
+              </div>
+            </div>
+
+            <div class="cardSlideChildren" id="our-work-4">
+              <div class="img-container">
+                <img src="./img/IMG2.png" alt="image" />
+              </div>
+
+              <div class="card-container">
+                <div class="card-large-number">+2 m</div>
+                <div class="card-title">Donated money</div>
+                <div class="card-description">
+                  People Go to Bed Hungry Each Night Lorem ipsum
+                </div>
+              </div>
+
+              <div class="content-container">
+                <div class="number-label">04</div>
+                <div class="content-heading">
+                  <h3>Shelter project</h3>
+                </div>
+                <div class="content-paragraph">
+                  In a journey spanning nearly a decade, the sponsorship and
+                  care of orphans has been at the core of ulfah Organization's
+                  work. As a result of this commitment, the number of orphans
+                  benefiting from sponsorship programs reached 30,203 by the
+                  year 2024.
+                </div>
+              </div>
+            </div>
+
+            <div class="cardSlideChildren" id="our-work-5">
+              <div class="img-container">
+                <img src="./img/IMG3.png" alt="image" />
+              </div>
+
+              <div class="card-container">
+                <div class="card-large-number">+2 m</div>
+                <div class="card-title">Donated money</div>
+                <div class="card-description">
+                  People Go to Bed Hungry Each Night Lorem ipsum
+                </div>
+              </div>
+
+              <div class="content-container">
+                <div class="number-label">05</div>
+                <div class="content-heading">
+                  <h3>Protection program</h3>
+                </div>
+                <div class="content-paragraph">
+                  In a journey spanning nearly a decade, the sponsorship and
+                  care of orphans has been at the core of ulfah Organization's
+                  work. As a result of this commitment, the number of orphans
+                  benefiting from sponsorship programs reached 30,203 by the
+                  year 2024.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <div class="red"></div>
 
@@ -576,6 +947,71 @@
 
         // Refresh ScrollTrigger on resize to ensure proper calculations
         window.addEventListener("resize", () => ScrollTrigger.refresh());
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        gsap.registerPlugin(ScrollTrigger);
+        const container = document.querySelector(".our-work");
+        const slides = gsap.utils.toArray(".cardSlideChildren");
+        const tl = gsap.timeline();
+
+        // Initialize ScrollTrigger
+        ScrollTrigger.create({
+          animation: tl,
+          trigger: container,
+          start: "top top",
+          end: "+=" + container.clientHeight * (slides.length - 1),
+          pin: container,
+          scrub: true,
+          snap: {
+            snapTo: 1 / (slides.length - 1)
+          }
+        });
+
+        // Set initial state for slides
+        gsap.set(slides, {
+          // xPercent: () => (window.innerWidth < 768 ? 125 : 0),
+          yPercent:125,
+          scale: 0.5,
+          opacity: 0
+        });
+
+        // Set first slide as active
+        gsap.to(
+          slides[0],
+          { yPercent: 0, xPercent: 0, opacity: 1, scale: 1, duration: 0 },
+          0
+        );
+        tl.add("our-work-1", "+=0");
+
+        // Setup slide transitions
+        slides.forEach((slide, i) => {
+          if (i > 0) {
+            tl.to(
+              slide,
+              {
+                opacity: 1,
+                yPercent: 0,
+                xPercent: 0,
+                scale: 1
+              },
+              0.5 * (i - 1)
+            )
+              .to(
+                slides[i - 1],
+                {
+                  opacity: 0,
+                  yPercent:-125,
+
+                  // xPercent: () => (window.innerWidth < 768 ? -125 : 0),
+                  scale: 0.5
+                },
+                "<"
+              )
+              .add("our-work-" + (i + 1));
+          }
+        });
       });
     </script>
   </body>
