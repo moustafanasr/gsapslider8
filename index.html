@@ -869,8 +869,10 @@
                 }
               },
               onLeaveBack: () => {
-                // Hide content when scrolling back past this slide
-                contentContainer.style.display = "none";
+                // Only hide content if not the first slide
+                if (index > 0) {
+                  contentContainer.style.display = "none";
+                }
               },
               once: false // Changed to false to allow multiple triggers
             });
@@ -972,7 +974,7 @@
         // Set initial state for slides
         gsap.set(slides, {
           // xPercent: () => (window.innerWidth < 768 ? 125 : 0),
-          yPercent:125,
+          yPercent: 125,
           scale: 0.5,
           opacity: 0
         });
@@ -1002,7 +1004,7 @@
                 slides[i - 1],
                 {
                   opacity: 0,
-                  yPercent:-125,
+                  yPercent: -125,
 
                   // xPercent: () => (window.innerWidth < 768 ? -125 : 0),
                   scale: 0.5
