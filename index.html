@@ -744,34 +744,34 @@
         const cardNumber = document.querySelector(".card-large-number");
         const cardTitle = document.querySelector(".card-title");
         const cardDesc = document.querySelector(".card-description");
-
+    
         // Function to update card content with animation
         function updateCardContent(photo) {
           // Get data from photo attributes
           const number = photo.getAttribute("cardLargeNumber");
           const title = photo.getAttribute("cardTitle");
           const desc = photo.getAttribute("cardDescription");
-
+    
           // Add fade-out animation to current content
           cardNumber.classList.add("fade-out");
           cardTitle.classList.add("fade-out");
           cardDesc.classList.add("fade-out");
-
+    
           // After fade-out completes, update content and fade-in
           setTimeout(() => {
             cardNumber.textContent = number;
             cardTitle.textContent = title;
             cardDesc.textContent = desc;
-
+    
             // Remove fade-out and add fade-in
             cardNumber.classList.remove("fade-out");
             cardTitle.classList.remove("fade-out");
             cardDesc.classList.remove("fade-out");
-
+    
             cardNumber.classList.add("fade-in");
             cardTitle.classList.add("fade-in");
             cardDesc.classList.add("fade-in");
-
+    
             // Remove fade-in after animation completes
             setTimeout(() => {
               cardNumber.classList.remove("fade-in");
@@ -780,7 +780,7 @@
             }, 500);
           }, 500);
         }
-
+    
         // Set initial background images from backimage attributes
         cardSlides.forEach((slide, index) => {
           const backImage = slide.getAttribute("backimage");
@@ -788,27 +788,27 @@
             photos[index].style.backgroundImage = `url(${backImage})`;
           }
         });
-
+    
         // Initially set all photos except first to be positioned below their container and hidden
         gsap.set(photos.slice(1), {
           yPercent: 100,
           opacity: 0,
           zIndex: 0
         });
-
+    
         // Set first photo to be visible and active
         gsap.set(photos[0], {
           yPercent: 0,
           opacity: 1,
           zIndex: 1
         });
-
+    
         // Set initial card content
         updateCardContent(photos[0]);
-
+    
         // Create a match media instance for responsive behavior
         let mm = gsap.matchMedia();
-
+    
         // Desktop behavior (min-width: 600px)
         mm.add("(min-width: 600px)", () => {
           // Pin the left column (with photos) while scrolling through content
@@ -818,20 +818,20 @@
             end: "bottom bottom",
             pin: ".left"
           });
-
+    
           // Create scroll triggers for each cardSlide
           cardSlides.forEach((slide, index) => {
             const contentContainer = slide.querySelector(".content-container");
             const headline = slide.querySelector("h3");
             const numberLabel = slide.querySelector(".number-label");
             const paragraph = slide.querySelector(".content-paragraph");
-
+    
             // Set initial state - all text elements hidden and container not displayed
             gsap.set([headline, numberLabel, paragraph], {
               opacity: 0,
               y: "50px"
             });
-
+    
             // Create animation for when the cardSlide enters the viewport
             ScrollTrigger.create({
               trigger: slide,
@@ -840,7 +840,7 @@
               onEnter: () => {
                 // First make the container visible
                 contentContainer.style.display = "flex";
-
+    
                 // Then animate all text elements in sequence
                 gsap.to(headline, {
                   y: 0,
@@ -862,7 +862,7 @@
                   ease: "power3.out",
                   delay: 0.4
                 });
-
+    
                 // Update card content when slide enters view
                 if (photos[index]) {
                   updateCardContent(photos[index]);
@@ -874,17 +874,16 @@
                   contentContainer.style.display = "none";
                 }
               },
-              once: false // Changed to false to allow multiple triggers
+              once: false
             });
           });
-
+    
           // Create photo animations for all slides
           cardSlides.forEach((slide, index) => {
             const currentPhoto = photos[index];
             const prevPhoto = index > 0 ? photos[index - 1] : null;
-            const nextPhoto =
-              index < photos.length - 1 ? photos[index + 1] : null;
-
+            const nextPhoto = index < photos.length - 1 ? photos[index + 1] : null;
+    
             ScrollTrigger.create({
               trigger: slide,
               start: "top 30%",
@@ -898,9 +897,9 @@
                   ease: "power3.out",
                   delay: 0.1
                 });
-
-                // Animate previous photo out if exists
-                if (prevPhoto) {
+    
+                // Animate previous photo out if exists and not first photo
+                if (prevPhoto && index > 0) {
                   gsap.to(prevPhoto, {
                     yPercent: -100,
                     opacity: 0,
@@ -909,11 +908,14 @@
                     delay: 0.1
                   });
                 }
-
+    
                 // Update card content
                 updateCardContent(currentPhoto);
               },
               onLeaveBack: () => {
+                // Don't animate if it's the first photo
+                if (index === 0) return;
+    
                 // When scrolling back, animate current photo out
                 gsap.to(currentPhoto, {
                   yPercent: 100,
@@ -922,7 +924,7 @@
                   ease: "power3.out",
                   delay: 0.1
                 });
-
+    
                 // Animate previous photo in if exists
                 if (prevPhoto) {
                   gsap.to(prevPhoto, {
@@ -932,21 +934,21 @@
                     ease: "power3.out",
                     delay: 0.1
                   });
-
+    
                   // Update card content to previous photo
                   updateCardContent(prevPhoto);
                 }
               }
             });
           });
-
+    
           // Cleanup function (runs when media query no longer matches)
           return () => {
             // Kill all ScrollTriggers created in this context
             ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
           };
         });
-
+    
         // Refresh ScrollTrigger on resize to ensure proper calculations
         window.addEventListener("resize", () => ScrollTrigger.refresh());
       });
@@ -957,7 +959,7 @@
         const container = document.querySelector(".our-work");
         const slides = gsap.utils.toArray(".cardSlideChildren");
         const tl = gsap.timeline();
-
+    
         // Initialize ScrollTrigger
         ScrollTrigger.create({
           animation: tl,
@@ -970,15 +972,14 @@
             snapTo: 1 / (slides.length - 1)
           }
         });
-
+    
         // Set initial state for slides
         gsap.set(slides, {
-          // xPercent: () => (window.innerWidth < 768 ? 125 : 0),
           yPercent: 125,
           scale: 0.5,
           opacity: 0
         });
-
+    
         // Set first slide as active
         gsap.to(
           slides[0],
@@ -986,7 +987,7 @@
           0
         );
         tl.add("our-work-1", "+=0");
-
+    
         // Setup slide transitions
         slides.forEach((slide, i) => {
           if (i > 0) {
@@ -1005,8 +1006,6 @@
                 {
                   opacity: 0,
                   yPercent: -125,
-
-                  // xPercent: () => (window.innerWidth < 768 ? -125 : 0),
                   scale: 0.5
                 },
                 "<"
