@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Gallery</title>
+    <style>
+      * {
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+      }
+
+      .red {
+        max-width: 1500px;
+        height: 150vh;
+        background: red;
+        margin: 0px auto;
+      }
+
+      .gallery {
+        max-width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        flex-direction: row;
+        margin: 0px auto;
+      }
+
+      .right {
+        max-width: 50%;
+      }
+
+      .left {
+        height: 100vh !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 50%;
+        position: relative;
+      }
+
+      .cardSlide {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+      }
+
+      .card-container {
+        position: absolute;
+        width: fit-content;
+        height: fit-content;
+        padding: 20px 30px;
+        background: #ffffff;
+        border-top-right-radius: 14px;
+        left: 0px;
+        bottom: 0px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: center;
+        align-items: flex-start;
+        z-index: 100;
+      }
+
+      .card-large-number {
+        font-style: normal;
+        font-weight: 800;
+        font-size: 56px;
+        line-height: 68px;
+        text-transform: capitalize;
+        color: #d50c3d;
+        will-change: transform, opacity;
+      }
+
+      .card-title {
+        margin: 5px 0px 20px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 22.68px;
+        line-height: 27px;
+        text-transform: capitalize;
+        color: #232826;
+        will-change: transform, opacity;
+      }
+
+      .card-description {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        text-transform: capitalize;
+        color: #232826;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 300px;
+        will-change: transform, opacity;
+      }
+
+      .content-container {
+        width: fit-content;
+        height: 50%;
+        display: none;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: flex-start;
+        justify-content: space-around;
+        align-items: flex-start;
+        position: relative;
+      }
+
+      .content-heading {
+        max-width: 460px;
+        height: fit-content;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 58px;
+        text-transform: uppercase;
+        color: #232826;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .content-heading h3 {
+        transform: translateY(100%);
+        opacity: 0;
+        will-change: transform, opacity;
+      }
+
+      .number-label {
+        position: absolute;
+        top: 20%;
+        left: 72%;
+        font-style: normal;
+        font-weight: 800;
+        font-size: 128px;
+        line-height: 34px;
+        display: flex;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.06);
+        transform: translateY(20px);
+        opacity: 0;
+        will-change: transform, opacity;
+      }
+
+      .content-paragraph {
+        max-width: 440px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 30px;
+        color: #232826;
+        position: relative;
+        transform: translateY(20px);
+        opacity: 0;
+        will-change: transform, opacity;
+      }
+
+      .desktopPhotos {
+        height: 544px;
+        width: 630px;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+      }
+      .desktopPhotos img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .desktopPhoto {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .image1 {
+        background-image: url("");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .image2 {
+        background-image: url("");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .image3 {
+        background-image: url("");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .image4 {
+        background-image: url("");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      /* Animation classes */
+      .fade-out {
+        animation: fadeOut 0.5s forwards;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s forwards;
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* small screen / mobile layout */
+      .mobileContent {
+        display: none;
+        width: 80vw;
+      }
+
+      .mobilePhoto {
+        width: 80vw;
+        height: 80vw;
+        margin-top: 5em;
+        border-radius: 6vw;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="red"></div>
+
+    <div class="gallery">
+      <div class="left">
+        <!-- desktop content -->
+        <div class="desktopPhotos">
+          <div
+            class="desktopPhoto image1"
+            cardLargeNumber="+2 m"
+            cardTitle="Donated Money"
+            cardDescription="People Go to bed hungry each night lorem ipsum"
+          ></div>
+
+          <div
+            class="desktopPhoto image2"
+            cardLargeNumber="+5 k"
+            cardTitle="Meals Provided"
+            cardDescription="Nutritious meals served to those in need"
+          ></div>
+
+          <div
+            class="desktopPhoto image3"
+            cardLargeNumber="+1.2 m"
+            cardTitle="Medical Aid"
+            cardDescription="Life-saving treatments provided worldwide"
+          ></div>
+
+          <div
+            class="desktopPhoto image4"
+            cardLargeNumber="+300"
+            cardTitle="Shelters Built"
+            cardDescription="Safe homes constructed for families"
+          ></div>
+
+          <div class="card-container">
+            <div class="card-large-number"></div>
+            <div class="card-title"></div>
+            <div class="card-description"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right">
+        <div backimage="img/IMG1.png" class="cardSlide">
+          <div class="content-container">
+            <div class="number-label">01</div>
+            <div class="content-heading">
+              <h3>Protection program</h3>
+            </div>
+            <div class="content-paragraph">
+              In a journey spanning nearly a decade, the sponsorship and care of
+              orphans has been at the core of ulfah Organization's work. As a
+              result of this commitment, the number of orphans benefiting from
+              sponsorship programs reached 30,203 by the year 2024.
+            </div>
+          </div>
+        </div>
+
+        <div backimage="img/IMG2.png" class="cardSlide">
+          <div class="content-container">
+            <div class="number-label">02</div>
+            <div class="content-heading">
+              <h3>Nutrition initiative</h3>
+            </div>
+            <div class="content-paragraph">
+              Our nutrition programs have provided over 5 million meals to
+              children and families in food-insecure regions, helping combat
+              malnutrition and promote healthy development.
+            </div>
+          </div>
+        </div>
+
+        <div backimage="img/IMG3.png" class="cardSlide">
+          <div class="content-container">
+            <div class="number-label">03</div>
+            <div class="content-heading">
+              <h3>Healthcare access</h3>
+            </div>
+            <div class="content-paragraph">
+              Through mobile clinics and partnerships with local hospitals,
+              we've delivered essential medical care to over 1.2 million
+              patients in underserved communities around the world.
+            </div>
+          </div>
+        </div>
+
+        <div backimage="img/IMG1.png" class="cardSlide">
+          <div class="content-container">
+            <div class="number-label">04</div>
+            <div class="content-heading">
+              <h3>Housing projects</h3>
+            </div>
+            <div class="content-paragraph">
+              Our shelter initiative has constructed over 300 durable homes for
+              families displaced by conflict and natural disasters, providing
+              safety and stability to vulnerable populations.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="red"></div>
+
+    <!-- Load GSAP and plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+
+    <script>
+      // Wait for DOM to be fully loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        // Select all elements
+        const cardSlides = gsap.utils.toArray(".cardSlide");
+        const photos = gsap.utils.toArray(".desktopPhoto");
+        const cardContainer = document.querySelector(".card-container");
+        const cardNumber = document.querySelector(".card-large-number");
+        const cardTitle = document.querySelector(".card-title");
+        const cardDesc = document.querySelector(".card-description");
+
+        // Function to update card content with animation
+        function updateCardContent(photo) {
+          // Get data from photo attributes
+          const number = photo.getAttribute("cardLargeNumber");
+          const title = photo.getAttribute("cardTitle");
+          const desc = photo.getAttribute("cardDescription");
+
+          // Add fade-out animation to current content
+          cardNumber.classList.add("fade-out");
+          cardTitle.classList.add("fade-out");
+          cardDesc.classList.add("fade-out");
+
+          // After fade-out completes, update content and fade-in
+          setTimeout(() => {
+            cardNumber.textContent = number;
+            cardTitle.textContent = title;
+            cardDesc.textContent = desc;
+
+            // Remove fade-out and add fade-in
+            cardNumber.classList.remove("fade-out");
+            cardTitle.classList.remove("fade-out");
+            cardDesc.classList.remove("fade-out");
+
+            cardNumber.classList.add("fade-in");
+            cardTitle.classList.add("fade-in");
+            cardDesc.classList.add("fade-in");
+
+            // Remove fade-in after animation completes
+            setTimeout(() => {
+              cardNumber.classList.remove("fade-in");
+              cardTitle.classList.remove("fade-in");
+              cardDesc.classList.remove("fade-in");
+            }, 500);
+          }, 500);
+        }
+
+        // Set initial background images from backimage attributes
+        cardSlides.forEach((slide, index) => {
+          const backImage = slide.getAttribute("backimage");
+          if (backImage && photos[index]) {
+            photos[index].style.backgroundImage = `url(${backImage})`;
+          }
+        });
+
+        // Initially set all photos except first to be positioned below their container and hidden
+        gsap.set(photos.slice(1), {
+          yPercent: 100,
+          opacity: 0,
+          zIndex: 0
+        });
+
+        // Set first photo to be visible and active
+        gsap.set(photos[0], {
+          yPercent: 0,
+          opacity: 1,
+          zIndex: 1
+        });
+
+        // Set initial card content
+        updateCardContent(photos[0]);
+
+        // Create a match media instance for responsive behavior
+        let mm = gsap.matchMedia();
+
+        // Desktop behavior (min-width: 600px)
+        mm.add("(min-width: 600px)", () => {
+          // Pin the left column (with photos) while scrolling through content
+          ScrollTrigger.create({
+            trigger: ".gallery",
+            start: "top top",
+            end: "bottom bottom",
+            pin: ".left"
+          });
+
+          // Create scroll triggers for each cardSlide
+          cardSlides.forEach((slide, index) => {
+            const contentContainer = slide.querySelector(".content-container");
+            const headline = slide.querySelector("h3");
+            const numberLabel = slide.querySelector(".number-label");
+            const paragraph = slide.querySelector(".content-paragraph");
+
+            // Set initial state - all text elements hidden and container not displayed
+            gsap.set([headline, numberLabel, paragraph], {
+              opacity: 0,
+              y: "50px"
+            });
+
+            // Create animation for when the cardSlide enters the viewport
+            ScrollTrigger.create({
+              trigger: slide,
+              start: "top 30%",
+              end: "top 60%",
+              onEnter: () => {
+                // First make the container visible
+                contentContainer.style.display = "flex";
+
+                // Then animate all text elements in sequence
+                gsap.to(headline, {
+                  y: 0,
+                  opacity: 1,
+                  duration: 0.2,
+                  ease: "power3.out"
+                });
+                gsap.to(numberLabel, {
+                  y: 0,
+                  opacity: 1,
+                  duration: 0.2,
+                  ease: "power3.out",
+                  delay: 0.2
+                });
+                gsap.to(paragraph, {
+                  y: 0,
+                  opacity: 1,
+                  duration: 0.2,
+                  ease: "power3.out",
+                  delay: 0.4
+                });
+
+                // Update card content when slide enters view
+                if (photos[index]) {
+                  updateCardContent(photos[index]);
+                }
+              },
+              onLeaveBack: () => {
+                // Hide content when scrolling back past this slide
+                contentContainer.style.display = "none";
+              },
+              once: false // Changed to false to allow multiple triggers
+            });
+          });
+
+          // Create photo animations for all slides
+          cardSlides.forEach((slide, index) => {
+            const currentPhoto = photos[index];
+            const prevPhoto = index > 0 ? photos[index - 1] : null;
+            const nextPhoto =
+              index < photos.length - 1 ? photos[index + 1] : null;
+
+            ScrollTrigger.create({
+              trigger: slide,
+              start: "top 30%",
+              end: "top 60%",
+              onEnter: () => {
+                // Animate current photo in
+                gsap.to(currentPhoto, {
+                  yPercent: 0,
+                  opacity: 1,
+                  duration: .6,
+                  ease: "power3.out",
+                  delay: 0.1
+                });
+
+                // Animate previous photo out if exists
+                if (prevPhoto) {
+                  gsap.to(prevPhoto, {
+                    yPercent: -100,
+                    opacity: 0,
+                    duration: .6,
+                    ease: "power3.out",
+                    delay: 0.1
+                  });
+                }
+
+                // Update card content
+                updateCardContent(currentPhoto);
+              },
+              onLeaveBack: () => {
+                // When scrolling back, animate current photo out
+                gsap.to(currentPhoto, {
+                  yPercent: 100,
+                  opacity: 0,
+                  duration: .6,
+                  ease: "power3.out",
+                  delay: 0.1
+                });
+
+                // Animate previous photo in if exists
+                if (prevPhoto) {
+                  gsap.to(prevPhoto, {
+                    yPercent: 0,
+                    opacity: 1,
+                    duration: .6,
+                    ease: "power3.out",
+                    delay: 0.1
+                  });
+
+                  // Update card content to previous photo
+                  updateCardContent(prevPhoto);
+                }
+              }
+            });
+          });
+
+          // Cleanup function (runs when media query no longer matches)
+          return () => {
+            // Kill all ScrollTriggers created in this context
+            ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+          };
+        });
+
+        // Refresh ScrollTrigger on resize to ensure proper calculations
+        window.addEventListener("resize", () => ScrollTrigger.refresh());
+      });
+    </script>
+  </body>
+</html>
